@@ -46,6 +46,8 @@ function setup() {
  */
 function draw() {
 	if (!isPaused) {
+		// If you have high frequency processor, it's possible that you'll need to adjust the way
+		// the timer variable works, so the simulation will run at a reasonable pace, not too fast, not too slow.
 		if (timer % 2 == 0) {
 			timer = 0;
 
