@@ -38,7 +38,7 @@ function setup() {
 
 /*
  * draw() is the "main loop" of the program,
- * its logical flow is crudelly represented by the following steps:
+ * its logical flow is crudely represented by the following steps:
  * 1: Analyze the current state of the board.
  * 2: Update the state of the board.
  * 3: Count the population number.
