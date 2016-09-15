@@ -10,6 +10,8 @@ Access the following link to see it in action (if the simulation speed is too fa
 
 *You can also run the glider-gun.js (don't forget to change the file reference in the .html file) to start the simulation with a Gosper's Glider Gun! It's interesting to see the gliders turning into stationary blocks before disappearing, this behaviour is due to the extra rules I've added to the simulation.*
 
+![glider-gun](https://cloud.githubusercontent.com/assets/16089829/18538852/aa3c20c6-7ae8-11e6-9c5f-63d1abd16655.gif)
+
 Keep in mind that I started to learn JavaScript and p5.js two days ago so, there must be some inefficiency here and there, but I managed to get the job done!
 
 Rodrigo M. Cucick.
