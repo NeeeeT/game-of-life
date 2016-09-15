@@ -32,23 +32,19 @@ function setup() {
 	createCanvas(GRID_WIDTH, CANVAS_HEIGHT);
 	createArrays();
 	initializeVariables();
-	displayGrid();
-	displayGUI();
 }
 
 function draw() {
 	if (!isPaused) {
 		if (timer % 2 == 0) {
-			timer = 0;
-
 			checkGrid();
 			updateGrid();
-
-			generation++;
-
 			countPopulation();
 			displayGrid();
 			displayGUI();
+
+			generation++;
+			timer = 0;
 		}
 	}
 	timer++;
@@ -57,14 +53,12 @@ function draw() {
 function createArrays() {
 	mainGridArray = new Array(ARRAY_Y_ELEMENTS);
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		mainGridArray[i] = new Array(ARRAY_X_ELEMENTS);
-
-		// Here I'm drawing (hard coding) an initial shape for the Gosper's Glider Gun.
+		// Here I'm drawing (hard coding) an initial state for the glider gun to work.
 		switch (i) {
 			case 19: mainGridArray[i] = [false, false, false, false, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
-					    	     false, false, false, false, false, false, false, false,
+					    	  false, false, false, false, false, false, false, false,
 						     false, false, false, true, true, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
@@ -159,7 +153,9 @@ function createArrays() {
 						     false, false, false, false, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
 						     false, false, false, false, false, false, false, false,
-						     false, false, false, false, false];
+						     false, false, false, false, false]; break;
+
+			default: mainGridArray[i] = new Array(ARRAY_X_ELEMENTS);
 		}
 	}
 
@@ -170,8 +166,6 @@ function createArrays() {
 }
 
 function initializeVariables() {
-	// This time the mainArrayGrid will not re-initialize, because the
-	// only purpose of this simulation is to create the glider gun.
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
 		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
 			updatedGridArray[i][j] = mainGridArray[i][j];
@@ -185,22 +179,15 @@ function initializeVariables() {
 }
 
 function displayGrid() {
-	let i = 0, j = 0;
-
 	noStroke();
 	fill(0);
 	rect(0, 0, GRID_WIDTH, GRID_HEIGHT);
 	fill(255);
 
-	for (var y = 0; y < GRID_HEIGHT; y += RECT_SIZE) {
-		for (var x = 0; x < GRID_WIDTH; x += RECT_SIZE) {
+	for (var y = 0, i = 0; y < GRID_HEIGHT; y += RECT_SIZE, i++) {
+		for (var x = 0, j = 0; x < GRID_WIDTH; x += RECT_SIZE, j++) {
 			if (mainGridArray[i][j]) rect(x, y, RECT_SIZE, RECT_SIZE);
-
-			j++;
 		}
-
-		j = 0;
-		i++;
 	}
 }
 
@@ -208,16 +195,16 @@ function displayGUI() {
 	fill(255); rect(0, GRID_HEIGHT, GRID_WIDTH, 768);
 	fill(0); textSize(16);
 	text("Generation: " + generation + "  Population: " + population, 10, 620);
-	text("[LEFT CLICK = PAUSE]  [MIDDLE CLICK = RESET]", 405, 620);
+	text("[LEFT CLICK = PAUSE]", 615, 620);
 }
 
 function mousePressed() {
+	// For this particular code I've disabled the reset function,
+	// because the only purpose of this simulation is to create the glider gun.
 	if (mouseButton == LEFT) {
 		if (isPaused) isPaused = false;
 		else isPaused = true;
 	}
-
-	if (mouseButton == CENTER && !isPaused) initializeVariables();
 }
 
 function checkGrid() {

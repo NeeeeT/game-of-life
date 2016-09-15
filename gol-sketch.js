@@ -33,8 +33,6 @@ function setup() {
 	createCanvas(GRID_WIDTH, CANVAS_HEIGHT);
 	createArrays();
 	initializeVariables();
-	displayGrid();
-	displayGUI();
 }
 
 /*
@@ -47,26 +45,26 @@ function setup() {
  */
 function draw() {
 	if (!isPaused) {
-		// If you have a high frequency CPU and/or GPU it's possible that you'll need to adjust the way
-		// the timer variable works, so the simulation will run at a reasonable pace, not too fast, not too slow.
-		// There's nothing "fancy" here, it's just a basic cycle counter. Using floats here might be a good idea.
+		// If you have a high frequency CPU and/or GPU it's possible that you'll
+		// need to adjust the way the timer variable works, so the simulation will
+		// run at a reasonable pace, not too fast, not too slow. There's nothing
+		// "fancy" here, it's just a basic cycle counter.
+		// Using floats here might be a good idea.
 		if (timer % 2 == 0) {
-			timer = 0;
-
 			checkGrid();
 			updateGrid();
-
-			generation++;
-
 			countPopulation();
 			displayGrid();
 			displayGUI();
+
+			generation++;
+			timer = 0;
 		}
 	}
 	timer++;
 }
 
-// This function creates the two main bidimensional arrays.
+// This function creates the two main bi-dimensional arrays.
 function createArrays() {
 	mainGridArray = new Array(ARRAY_Y_ELEMENTS);
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
@@ -79,8 +77,6 @@ function createArrays() {
 	}
 }
 
-// initializeVariables() is self-explanatory, all it does is pertinent
-// to initializing variables.
 function initializeVariables() {
 	// The booleanValuesArray stores 10 hard coded boolean values (1 true, 9 falses).
 	// It was created to be used in conjunction with random(), resulting in a 1/10
@@ -107,34 +103,25 @@ function initializeVariables() {
 	isPaused = false;
 }
 
-// displayGrid() is responsible for drawing the board.
 function displayGrid() {
-	let i = 0, j = 0;
-
 	noStroke();
 	fill(0);
 	rect(0, 0, GRID_WIDTH, GRID_HEIGHT); // Fills the cell grid area with a black rect.
 	fill(255);
 
-	for (var y = 0; y < GRID_HEIGHT; y += RECT_SIZE) {
-		for (var x = 0; x < GRID_WIDTH; x += RECT_SIZE) {
+	for (var y = 0, i = 0; y < GRID_HEIGHT; y += RECT_SIZE, i++) {
+		for (var x = 0, j = 0; x < GRID_WIDTH; x += RECT_SIZE, j++) {
 			// If the value in mainGridArray[i][j] is true, draw a white rectangle
-			// on the coordinates that correspond to that index. In this for loop
-			// I'm using the RECT_SIZE constant to easily transform
-			// a bidimensional array index into cartesian coordinates.
+			// on the coordinates that correspond to that index position.
+			// In this for loop I'm using the RECT_SIZE constant to easily transform
+			// a two-dimensional array index into cartesian coordinates.
 			if (mainGridArray[i][j]) rect(x, y, RECT_SIZE, RECT_SIZE);
-
-			j++;
 		}
-
-		j = 0;
-		i++;
 	}
 }
 
-// displayGUI() display some text information on the screen.
 function displayGUI() {
-	fill(255); rect(0, GRID_HEIGHT, GRID_WIDTH, 768);
+	fill(255); rect(0, GRID_HEIGHT, GRID_WIDTH, 768); // Draws a white rect. on the GUI area.
 	fill(0); textSize(16);
 	text("Generation: " + generation + "  Population: " + population, 10, 620);
 	text("[LEFT CLICK = PAUSE]  [MIDDLE CLICK = RESET]", 405, 620);
@@ -142,11 +129,13 @@ function displayGUI() {
 
 // Mouse events.
 function mousePressed() {
+	// Pause.
 	if (mouseButton == LEFT) {
 		if (isPaused) isPaused = false;
 		else isPaused = true;
 	}
 
+	// Reset.
 	if (mouseButton == CENTER && !isPaused) initializeVariables();
 }
 
@@ -234,7 +223,7 @@ function checkGrid() {
 	}
 }
 
-// updateGrid() copies all values in updatedGridArray to mainGridArray.
+// updateGrid() copies all values from updatedGridArray to mainGridArray.
 function updateGrid() {
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
 		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
@@ -243,7 +232,6 @@ function updateGrid() {
 	}
 }
 
-// Simple function that counts the number of live cells.
 function countPopulation() {
 	population = 0;
 
