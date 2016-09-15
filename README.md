@@ -9,6 +9,6 @@ This is my implementation of Conway's Game of Life, I added some extra rules for
 Access the following link to see it in action (if the simulation speed is too fast or too slow, you will need to make some adjustments in the gol-sketch.js file): **https://rodrigocucick.github.io/gol-sketch/**
 
 # Gosper's Glider Gun
-You can also run the glider-gun.js (don't forget to change the file reference in the .html file) to start the simulation with a Gosper's Glider Gun! It's interesting to see the gliders turning into stationary blocks before disappearing, this behaviour is due to the extra rules I've added to the simulation.
+You can also use the glider-gun.js (don't forget to change the file reference in the .html file) to start the simulation with a Gosper's Glider Gun! It's interesting to see the gliders turning into stationary blocks before disappearing, this behaviour is due to the extra rules I've added to the simulation.
 
 ![glider-gun](https://cloud.githubusercontent.com/assets/16089829/18538852/aa3c20c6-7ae8-11e6-9c5f-63d1abd16655.gif)
