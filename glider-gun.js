@@ -58,107 +58,107 @@ function createArrays() {
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
 		mainGridArray[i] = new Array(ARRAY_X_ELEMENTS);
 
-		// Here I'm drawing an initial shape for the Gosper's Glider Gun.
+		// Here I'm drawing (hard coding) an initial shape for the Gosper's Glider Gun.
 		switch (i) {
 			case 19: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, true, true, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+					    	     false, false, false, false, false, false, false, false,
+						     false, false, false, true, true, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false]; break;
 
 			case 20: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, true, false, false, false, true, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, true, false, false, false, true, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false]; break;
 
 			case 21: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, true, true, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false, true,
-												  false, false, false, false, false, true, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, true, true, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false, true,
+						     false, false, false, false, false, true, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false]; break;
 
 			case 22: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, true, true, true, false, false, false,
-												  false, true, true, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, true, false,
-												  false, false, true, false, true, true, false, false, true,
-												  true, false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false]; break;
+						     false, false, false, true, true, true, false, false, false,
+						     false, true, true, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, true, false,
+						     false, false, true, false, true, true, false, false, true,
+						     true, false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false]; break;
 
 			case 23: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, true, true, true, true, true, false, false,
-												  false, false, false, false, true, true, false, false, false,
-												  false, false, false, false, false, false, false, true, false,
-												  false, false, false, false, true, false, false, false, true,
-												  true, false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false]; break;
+						     false, false, true, true, true, true, true, false, false,
+						     false, false, false, false, true, true, false, false, false,
+						     false, false, false, false, false, false, false, true, false,
+						     false, false, false, false, true, false, false, false, true,
+						     true, false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false]; break;
 
 			case 24: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, true, false, true, false, false, false, true, false,
-												  false, false, false, false, true, true, true, false, false,
-												  false, false, false, false, false, false, false, false, true,
-												  false, false, false, true, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false]; break;
+						     false, true, false, true, false, false, false, true, false,
+						     false, false, false, false, true, true, true, false, false,
+						     false, false, false, false, false, false, false, false, true,
+						     false, false, false, true, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false]; break;
 
 			case 25: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, true, true, false, false, false, true, false, false,
-												  false, false, false, false, true, true, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, true, true, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false]; break;
+						     false, true, true, false, false, false, true, false, false,
+						     false, false, false, false, true, true, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, true, true, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false]; break;
 
 			case 26: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, true, true, false, false, false, false, false,
-												  false, false, false, false, true, false, true, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, true, true, false, false, false, false, false,
+						     false, false, false, false, true, false, true, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false]; break;
 
 			case 27: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, true, true, false, false, false, false, false,
-												  false, false, false, false, false, true, true, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, true, true, false, false, false, false, false,
+						     false, false, false, false, false, true, true, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false]; break;
 
 			case 28: mainGridArray[i] = [false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, true, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false, false, false, false,
-												  false, false, false, false, false]; break;
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, true, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false, false, false, false,
+						     false, false, false, false, false];
 		}
 	}
 
@@ -169,6 +169,8 @@ function createArrays() {
 }
 
 function initializeVariables() {
+	// This time the mainArrayGrid will not re-initialize, because the
+	// only purpose of this simulation is to create the glider gun.
 	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
 		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
 			updatedGridArray[i][j] = mainGridArray[i][j];
