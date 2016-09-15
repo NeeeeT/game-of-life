@@ -48,7 +48,7 @@ function draw() {
 	if (!isPaused) {
 		// If you have a high frequency CPU and/or GPU it's possible that you'll need to adjust the way
 		// the timer variable works, so the simulation will run at a reasonable pace, not too fast, not too slow.
-		// There's nothing "fancy" here, it's just a basic cycle counter. Using floats here might be a good a idea.
+		// There's nothing "fancy" here, it's just a basic cycle counter. Using floats here might be a good idea.
 		if (timer % 2 == 0) {
 			timer = 0;
 
