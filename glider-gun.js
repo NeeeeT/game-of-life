@@ -33,6 +33,7 @@ function setup() {
 	createArrays();
 	initializeVariables();
 	displayGrid();
+	displayGUI();
 }
 
 function draw() {
