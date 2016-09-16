@@ -1,4 +1,4 @@
-# p5.js Game of Life
+# JavaScript (p5.js) - Conway's Game of Life
 A JavaScript (p5.js) implementation of Conway's cellular automaton, Game of Life.
 
 ![vokoscreen-2016-09-15_02-11-14](https://cloud.githubusercontent.com/assets/16089829/18539087/ac14363e-7aea-11e6-87de-fe907f3c2d6f.gif)
