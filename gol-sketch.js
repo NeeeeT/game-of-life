@@ -23,18 +23,18 @@
  */
 
 const GRID_SIZE = 1000,
-	  RECT_SIZE = 10,
-	  ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
+      RECT_SIZE = 10,
+      ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
 
 var isDisplayingHelp,
-	isPaused,
-	generation,
-	lastCellX,
-	lastCellY,
-	mainGridArray,
-	population,
-	timer,
-	updatedGridArray;
+    isPaused,
+    generation,
+    lastCellX,
+    lastCellY,
+    mainGridArray,
+    population,
+    timer,
+    updatedGridArray;
 
 function setup() {
 	createCanvas(GRID_SIZE, GRID_SIZE);
@@ -129,7 +129,7 @@ function displayGUI() {
 
 function convertCoordinates() {
 	var x = mouseX,
-		y = mouseY;
+	    y = mouseY;
 
 	// Rounding down the canvas coordinates to nearest grid coordinates.
 	while (x % RECT_SIZE != 0) x--;
