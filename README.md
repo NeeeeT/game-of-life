@@ -1,6 +1,6 @@
 # JavaScript (p5.js) - Conway's Game of Life
 
-A JavaScript (p5.js) implementation of Conway's cellular automaton, Game of Life with visible finite grid.
+A JavaScript (p5.js) implementation of Conway's cellular automaton, Game of Life with visible finite grid and added rules for corners and borders.
 
 Link: https://rodrigocucick.github.io/game-of-life-p5/
 
