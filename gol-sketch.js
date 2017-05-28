@@ -22,35 +22,29 @@
  *	SOFTWARE.
  */
 
-const GRID_HEIGHT = 600, GRID_WIDTH = 800, CANVAS_HEIGHT = 630;
-const ARRAY_Y_ELEMENTS = 60, ARRAY_X_ELEMENTS = 80;
-const RECT_SIZE = 10;
-var mainGridArray, updatedGridArray, booleanValuesArray;
-var generation, population, timer, isPaused;
+const GRID_SIZE = 1000,
+	  RECT_SIZE = 10,
+	  ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
 
-// setup() executes all the work necessary for the initialization of the program.
+var isDisplayingHelp,
+	isPaused,
+	generation,
+	lastCellX,
+	lastCellY,
+	mainGridArray,
+	population,
+	timer,
+	updatedGridArray;
+
 function setup() {
-	createCanvas(GRID_WIDTH, CANVAS_HEIGHT);
+	createCanvas(GRID_SIZE, GRID_SIZE);
 	createArrays();
 	initializeVariables();
 }
 
-/*
- * draw() is the "main loop" of the program,
- * its logical flow is crudely represented by the following steps:
- * 1: Analyze the current state of the board.
- * 2: Update the state of the board.
- * 3: Count the population number.
- * 4: Display the board and the GUI.
- */
 function draw() {
 	if (!isPaused) {
-		// If you have a high frequency CPU and/or GPU it's possible that you'll
-		// need to adjust the way the timer variable works, so the simulation will
-		// run at a reasonable pace, not too fast, not too slow. There's nothing
-		// "fancy" here, it's just a basic cycle counter.
-		// Using floats here might be a good idea.
-		if (timer % 2 == 0) {
+		if (timer == 1.5) {
 			checkGrid();
 			updateGrid();
 			countPopulation();
@@ -60,137 +54,206 @@ function draw() {
 			generation++;
 			timer = 0;
 		}
+		timer += 0.5;
 	}
-	timer++;
+	else {
+		countPopulation();
+		displayGrid();
+		displayGUI();
+	}
 }
 
-// This function creates the two main bi-dimensional arrays.
 function createArrays() {
-	mainGridArray = new Array(ARRAY_Y_ELEMENTS);
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		mainGridArray[i] = new Array(ARRAY_X_ELEMENTS);
-	}
+	mainGridArray    = new Array(ARRAY_ELEMENTS);
+	updatedGridArray = new Array(ARRAY_ELEMENTS);
 
-	updatedGridArray = new Array(ARRAY_Y_ELEMENTS);
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		updatedGridArray[i] = new Array(ARRAY_X_ELEMENTS);
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		mainGridArray[i]    = new Array(ARRAY_ELEMENTS);
+		updatedGridArray[i] = new Array(ARRAY_ELEMENTS);
 	}
 }
 
 function initializeVariables() {
-	// The booleanValuesArray stores 10 hard coded boolean values (1 true, 9 falses).
-	// It was created to be used in conjunction with random(), resulting in a 1/10
-	// chance to create a live cell in the board, so the initial state
-	// is not that crowded with live cells.
-	booleanValuesArray = [true, false, false, false, false,
-								 false, false, false, false, false];
+	// The initial state of every index has a 10% chance of being a live cell.
+	var binaryValuesArray = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
-			mainGridArray[i][j] = random(booleanValuesArray);
-		}
-	}
-
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		for (var j = 0; j < ARRAY_ELEMENTS; j++) {
+			mainGridArray[i][j]    = random(binaryValuesArray);
 			updatedGridArray[i][j] = mainGridArray[i][j];
 		}
 	}
 
-	generation = 0;
-	population = 0;
-	timer = 0;
-	isPaused = false;
+	generation       = 0;
+	isDisplayingHelp = true;
+	isPaused         = false;
+	lastCellX        = -1;
+	lastCellY        = -1;
+	population       = 0;
+	timer 	         = 1.5;
 }
 
 function displayGrid() {
 	noStroke();
 	fill(0);
-	rect(0, 0, GRID_WIDTH, GRID_HEIGHT); // Fills the cell grid area with a black rect.
+	rect(0, 0, GRID_SIZE, GRID_SIZE);
 	fill(255);
 
-	for (var y = 0, i = 0; y < GRID_HEIGHT; y += RECT_SIZE, i++) {
-		for (var x = 0, j = 0; x < GRID_WIDTH; x += RECT_SIZE, j++) {
-			// If the value in mainGridArray[i][j] is true, draw a white rectangle
-			// on the coordinates that correspond to that index position.
-			// In this for loop I'm using the RECT_SIZE constant to easily transform
-			// a two-dimensional array index into cartesian coordinates.
+	for (var y = 0, i = 0; y < GRID_SIZE; y += RECT_SIZE, i++) {
+		for (var x = 0, j = 0; x < GRID_SIZE; x += RECT_SIZE, j++) {
 			if (mainGridArray[i][j]) rect(x, y, RECT_SIZE, RECT_SIZE);
 		}
 	}
 }
 
 function displayGUI() {
-	fill(255); rect(0, GRID_HEIGHT, GRID_WIDTH, 768); // Draws a white rect. on the GUI area.
-	fill(0); textSize(16);
-	text("Generation: " + generation + "  Population: " + population, 10, 620);
-	text("[LEFT CLICK = PAUSE]  [MIDDLE CLICK = RESET]", 405, 620);
+	textSize(16);
+	textStyle(NORMAL);
+	textFont("Arial");
+
+	if (isDisplayingHelp) {
+		text("ENTER: Pauses/unpauses.", 20, 30);
+		text("ESC (while unpaused): Resets to a random initial state.", 20, 50);
+		text("DEL (while paused): Clears the grid.", 20, 70);
+		text("MOUSE CLICK/DRAG (while paused): Draws on the grid.", 20, 90);
+		text("BACKSPACE: Toggles help on/off.", 20, 110);
+	}
+
+	fill(0);
+	rect(0, 945, 320, 55);
+
+	fill(255);
+	text("Population: " + population, 20, GRID_SIZE - 20);
+	text("Generation: " + generation, 160, GRID_SIZE - 20);
 }
 
-// Mouse events.
+function convertCoordinates() {
+	var x = mouseX,
+		y = mouseY;
+
+	// Rounding down the canvas coordinates to nearest grid coordinates.
+	while (x % RECT_SIZE != 0) x--;
+	while (y % RECT_SIZE != 0) y--;
+
+	// Converting the grid coordinates to array coordinates.
+	x /= RECT_SIZE;
+	y /= RECT_SIZE;
+
+	// Applying the changes to the grid array.
+	if ((lastCellX != x) || (lastCellY != y)) {
+		if (updatedGridArray[y][x]) updatedGridArray[y][x] = 0;
+		else updatedGridArray[y][x] = 1;
+	}
+
+	// Cannot trigger the same cell to change on the same mouse click/drag.
+	lastCellX = x;
+	lastCellY = y;
+
+	updateGrid();
+}
+
+// Event handling.
 function mousePressed() {
+	if (isPaused) convertCoordinates();
+
+	return false;
+}
+
+function mouseDragged() {
+	if (isPaused) convertCoordinates();
+
+	return false;
+}
+
+function mouseReleased() {
+	lastCellX = -1;
+	lastCellY = -1;
+
+	return false;
+}
+
+function keyPressed() {
 	// Pause.
-	if (mouseButton == LEFT) {
+	if (keyCode === RETURN) {
 		if (isPaused) isPaused = false;
 		else isPaused = true;
 	}
-
 	// Reset.
-	if (mouseButton == CENTER && !isPaused) initializeVariables();
+	else if ((keyCode === ESCAPE) && !isPaused) {
+		 initializeVariables();
+	}
+	else if ((keyCode === DELETE) && isPaused) {
+		emptyGrid();
+	}
+	else if (keyCode === BACKSPACE) {
+		if (isDisplayingHelp) isDisplayingHelp = false;
+		else isDisplayingHelp = true;
+	}
+
+	return false;
 }
 
-// Game logic.
+function emptyGrid() {
+	generation = 0;
+
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		for (var j = 0; j < ARRAY_ELEMENTS; j++) {
+			updatedGridArray[i][j] = 0;
+		}
+	}
+
+	updateGrid();
+}
+
 function checkGrid() {
-	var neighbours;
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		for (var j = 0; j < ARRAY_ELEMENTS; j++) {
+			var neighbours = 0
 
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
-			neighbours = 0;
-
-			// Rules for the corners.
+			// Corners.
 			if (i == 0 && j == 0) {
 				if (mainGridArray[i][j + 1]) neighbours++;
 				if (mainGridArray[i + 1][j]) neighbours++;
 				if (mainGridArray[i + 1][j + 1]) neighbours++;
 			}
-			else if (i == 0 && j == (ARRAY_X_ELEMENTS - 1)) {
+			else if (i == 0 && j == (ARRAY_ELEMENTS - 1)) {
 				if (mainGridArray[i][j - 1]) neighbours++;
 				if (mainGridArray[i + 1][j]) neighbours++;
 				if (mainGridArray[i + 1][j - 1]) neighbours++;
 			}
-			else if (i == (ARRAY_Y_ELEMENTS - 1) && j == 0) {
+			else if (i == (ARRAY_ELEMENTS - 1) && j == 0) {
 				if (mainGridArray[i][j + 1]) neighbours++;
 				if (mainGridArray[i - 1][j]) neighbours++;
 				if (mainGridArray[i - 1][j + 1]) neighbours++;
 			}
-			else if (i == (ARRAY_Y_ELEMENTS - 1) && j == (ARRAY_X_ELEMENTS - 1)) {
+			else if (i == (ARRAY_ELEMENTS - 1) && j == (ARRAY_ELEMENTS - 1)) {
 				if (mainGridArray[i][j - 1]) neighbours++;
 				if (mainGridArray[i - 1][j]) neighbours++;
 				if (mainGridArray[i - 1][j - 1]) neighbours++;
 			}
-			// Rules for the borders.
-			else if (i == 0 && (j > 0 && j < (ARRAY_X_ELEMENTS - 1))) {
+			// Borders.
+			else if (i == 0 && (j > 0 && j < (ARRAY_ELEMENTS - 1))) {
 				if (mainGridArray[i][j - 1]) neighbours++;
 				if (mainGridArray[i][j + 1]) neighbours++;
 				if (mainGridArray[i + 1][j - 1]) neighbours++;
 				if (mainGridArray[i + 1][j]) neighbours++;
 				if (mainGridArray[i + 1][j + 1]) neighbours++;
 			}
-			else if (i == (ARRAY_Y_ELEMENTS - 1) && (j > 0 && j < (ARRAY_X_ELEMENTS - 1))) {
+			else if (i == (ARRAY_ELEMENTS - 1) && (j > 0 && j < (ARRAY_ELEMENTS - 1))) {
 				if (mainGridArray[i][j - 1]) neighbours++;
 				if (mainGridArray[i][j + 1]) neighbours++;
 				if (mainGridArray[i - 1][j - 1]) neighbours++;
 				if (mainGridArray[i - 1][j]) neighbours++;
 				if (mainGridArray[i - 1][j + 1]) neighbours++;
 			}
-			else if ((i > 0 && i < (ARRAY_Y_ELEMENTS - 1)) && j == 0) {
+			else if ((i > 0 && i < (ARRAY_ELEMENTS - 1)) && j == 0) {
 				if (mainGridArray[i - 1][j]) neighbours++;
 				if (mainGridArray[i + 1][j]) neighbours++;
 				if (mainGridArray[i - 1][j + 1]) neighbours++;
 				if (mainGridArray[i][j + 1]) neighbours++;
 				if (mainGridArray[i + 1][j + 1]) neighbours++;
 			}
-			else if ((i > 0 && i < (ARRAY_Y_ELEMENTS - 1)) && j == (ARRAY_X_ELEMENTS - 1)) {
+			else if ((i > 0 && i < (ARRAY_ELEMENTS - 1)) && j == (ARRAY_ELEMENTS - 1)) {
 				if (mainGridArray[i - 1][j]) neighbours++;
 				if (mainGridArray[i + 1][j]) neighbours++;
 				if (mainGridArray[i - 1][j - 1]) neighbours++;
@@ -209,24 +272,21 @@ function checkGrid() {
 				if (mainGridArray[i + 1][j + 1]) neighbours++;
 			}
 
-			// All changes are stored in a secondary array and, after a complete scan,
-			// the mainGridArray will receive all of its updated values at once. This is
-			// necessary to avoid erratic behavior.
+			// Applying changes to a secondary array.
 			if (mainGridArray[i][j]) {
-				if (neighbours < 2) updatedGridArray[i][j] = false;
-				else if (neighbours > 3) updatedGridArray[i][j] = false;
+				if (neighbours < 2) updatedGridArray[i][j] = 0;
+				else if (neighbours > 3) updatedGridArray[i][j] = 0;
 			}
 			else {
-				if (neighbours == 3) updatedGridArray[i][j] = true;
+				if (neighbours == 3) updatedGridArray[i][j] = 1;
 			}
 		}
 	}
 }
 
-// updateGrid() copies all values from updatedGridArray to mainGridArray.
 function updateGrid() {
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		for (var j = 0; j < ARRAY_ELEMENTS; j++) {
 			mainGridArray[i][j] = updatedGridArray[i][j];
 		}
 	}
@@ -235,8 +295,8 @@ function updateGrid() {
 function countPopulation() {
 	population = 0;
 
-	for (var i = 0; i < ARRAY_Y_ELEMENTS; i++) {
-		for (var j = 0; j < ARRAY_X_ELEMENTS; j++) {
+	for (var i = 0; i < ARRAY_ELEMENTS; i++) {
+		for (var j = 0; j < ARRAY_ELEMENTS; j++) {
 			if (mainGridArray[i][j]) population++;
 		}
 	}
