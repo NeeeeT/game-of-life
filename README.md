@@ -8,7 +8,7 @@ Link: https://rodrigocucick.github.io/game-of-life-p5/
 
 **#2 Ver. 1.2.2 (05/29/17)** 
 * Adjusted the GUI for better readability.
-* Fixed a minor inconsistency where the help box would reappear after a board reset, independently of the user choice.
+* Fixed a minor inconsistency where the help box would reappear everytime after a simluation reset (via ESC key).
 
 
 **#1 Ver. 1.2 (05/28/17)** 
