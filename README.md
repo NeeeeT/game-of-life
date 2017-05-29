@@ -6,4 +6,9 @@ Link: https://rodrigocucick.github.io/game-of-life-p5/
 
 # Change Log
 
-#1 Ver. 1.2 (05/28/17): Added drawing functionality and optimized some parts of the code.
+#2 Ver. 1.2.2 (05/29/17): 
+* Adjusted the GUI for better readability.
+* Fixed a minor inconsistency where the help box would reappear after a board reset, independently of the user choice.
+
+#1 Ver. 1.2 (05/28/17): 
+* Added drawing functionality and optimized some parts of the code.
