@@ -23,14 +23,14 @@
  */
 
 const GRID_SIZE = 1000,
-	  RECT_SIZE = 10,
-	  ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
+      RECT_SIZE = 10,
+      ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
 
 var mainGridArray, updatedGridArray,
-	population, generation,
-	lastCellX, lastCellY,
-	isDisplayingHelp, isPaused,
-	timer;
+    population, generation,
+    lastCellX, lastCellY,
+    isDisplayingHelp, isPaused,
+    timer;
 
 function setup() {
 	createCanvas(GRID_SIZE, GRID_SIZE);
