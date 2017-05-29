@@ -23,23 +23,19 @@
  */
 
 const GRID_SIZE = 1000,
-      RECT_SIZE = 10,
-      ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
+	  RECT_SIZE = 10,
+	  ARRAY_ELEMENTS = GRID_SIZE / RECT_SIZE;
 
-var isDisplayingHelp,
-    isPaused,
-    generation,
-    lastCellX,
-    lastCellY,
-    mainGridArray,
-    population,
-    timer,
-    updatedGridArray;
+var mainGridArray, updatedGridArray,
+	population, generation,
+	lastCellX, lastCellY,
+	isDisplayingHelp, isPaused,
+	timer;
 
 function setup() {
 	createCanvas(GRID_SIZE, GRID_SIZE);
 	createArrays();
-	initializeVariables();
+	initializeVariables(true);
 }
 
 function draw() {
@@ -73,7 +69,7 @@ function createArrays() {
 	}
 }
 
-function initializeVariables() {
+function initializeVariables(flagHelp) {
 	// The initial state of every index has a 10% chance of being a live cell.
 	var binaryValuesArray = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -85,7 +81,7 @@ function initializeVariables() {
 	}
 
 	generation       = 0;
-	isDisplayingHelp = true;
+	isDisplayingHelp = flagHelp;
 	isPaused         = false;
 	lastCellX        = -1;
 	lastCellY        = -1;
@@ -95,8 +91,10 @@ function initializeVariables() {
 
 function displayGrid() {
 	noStroke();
+
 	fill(0);
 	rect(0, 0, GRID_SIZE, GRID_SIZE);
+
 	fill(255);
 
 	for (var y = 0, i = 0; y < GRID_SIZE; y += RECT_SIZE, i++) {
@@ -112,6 +110,13 @@ function displayGUI() {
 	textFont("Arial");
 
 	if (isDisplayingHelp) {
+		stroke(255);
+		fill(0);
+		rect(0,0, 450, 130);
+
+		noStroke();
+
+		fill(255);
 		text("ENTER: Pauses/unpauses.", 20, 30);
 		text("ESC (while unpaused): Resets to a random initial state.", 20, 50);
 		text("DEL (while paused): Clears the grid.", 20, 70);
@@ -119,8 +124,11 @@ function displayGUI() {
 		text("BACKSPACE: Toggles help on/off.", 20, 110);
 	}
 
+	stroke(255);
 	fill(0);
 	rect(0, 945, 320, 55);
+
+	noStroke();
 
 	fill(255);
 	text("Population: " + population, 20, GRID_SIZE - 20);
@@ -129,7 +137,7 @@ function displayGUI() {
 
 function convertCoordinates() {
 	var x = mouseX,
-	    y = mouseY;
+		y = mouseY;
 
 	// Rounding down the canvas coordinates to nearest grid coordinates.
 	while (x % RECT_SIZE != 0) x--;
@@ -140,7 +148,7 @@ function convertCoordinates() {
 	y /= RECT_SIZE;
 
 	// Applying the changes to the grid array.
-	if ((lastCellX != x) || (lastCellY != y)) {
+	if (lastCellX != x || lastCellY != y) {
 		if (updatedGridArray[y][x]) updatedGridArray[y][x] = 0;
 		else updatedGridArray[y][x] = 1;
 	}
@@ -179,10 +187,10 @@ function keyPressed() {
 		else isPaused = true;
 	}
 	// Reset.
-	else if ((keyCode === ESCAPE) && !isPaused) {
-		 initializeVariables();
+	else if (keyCode === ESCAPE && !isPaused) {
+		 initializeVariables(isDisplayingHelp);
 	}
-	else if ((keyCode === DELETE) && isPaused) {
+	else if (keyCode === DELETE && isPaused) {
 		emptyGrid();
 	}
 	else if (keyCode === BACKSPACE) {
