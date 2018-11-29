@@ -2,7 +2,7 @@
 
 A JavaScript (using the p5.js library) implementation of Conway's cellular automaton, Game of Life, with visible finite grid, added rules for corners and borders and a drawing mode.
 
-Run it: https://rodrigocucick.github.io/game-of-life-p5/
+Run it: https://rodrigocucick.github.io/game-of-life/
 
 Works best/only in Firefox (sorry for the inconvenience).
 
