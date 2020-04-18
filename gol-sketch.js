@@ -136,8 +136,8 @@ function displayGUI() {
 }
 
 function convertCoordinates() {
-	var x = mouseX,
-		y = mouseY;
+	var x = Math.trunc(mouseX),
+	    y = Math.trunc(mouseY);
 
 	// Rounding down the canvas coordinates to nearest grid coordinates.
 	while (x % RECT_SIZE != 0) x--;
@@ -163,20 +163,17 @@ function convertCoordinates() {
 // Event handling.
 function mousePressed() {
 	if (isPaused) convertCoordinates();
-
 	return false;
 }
 
 function mouseDragged() {
 	if (isPaused) convertCoordinates();
-
 	return false;
 }
 
 function mouseReleased() {
 	lastCellX = -1;
 	lastCellY = -1;
-
 	return false;
 }
 
