@@ -4,13 +4,13 @@ A JavaScript (using the p5.js library) implementation of Conway's cellular autom
 
 Run it: https://rodrigocucick.github.io/game-of-life/
 
-Works best/only in Firefox (sorry for the inconvenience).
-
 ![main](https://user-images.githubusercontent.com/16089829/33093560-733d1b56-cee4-11e7-9f5f-93d729971f03.jpg)
 
 ![drawing](https://user-images.githubusercontent.com/16089829/33093561-73590be0-cee4-11e7-8ddb-156ca930b4a1.jpg)
 
 # Change Log
+**#3 Ver. 1.3 (04/18/20)** 
+* Fixed a bug with floating point mouse coordinates causing infinite loops when rounding down the canvas coordinates to grid coordinates.
 
 **#2 Ver. 1.2.2 (05/29/17)** 
 * Adjusted the GUI for better readability.
