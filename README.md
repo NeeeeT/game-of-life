@@ -9,7 +9,7 @@ Run it: https://rodrigocucick.github.io/game-of-life/
 ![drawing](https://user-images.githubusercontent.com/16089829/33093561-73590be0-cee4-11e7-8ddb-156ca930b4a1.jpg)
 
 # Change Log
-**#3 Ver. 1.3 (04/18/20)** 
+**#3 Ver. 1.3 (04/18/2020)** 
 * Fixed a bug with floating point mouse coordinates causing infinite loops when rounding down the canvas coordinates to grid coordinates.
 
 **#2 Ver. 1.2.2 (05/29/17)** 
